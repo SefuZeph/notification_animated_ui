@@ -15,7 +15,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: Scaffold(
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(0),
+            child: AppBar(
+              backgroundColor: Color(0xfff79631),
+            )),
+        body: MyHomePage(),
+      ),
     );
   }
 }
@@ -28,31 +35,71 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool selected = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: AppBar(
-            backgroundColor: Color(0xfff79631),
-          )),
-      body: Container(
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selected = true;
+        });
+      },
+      child: Container(
         child: Stack(
-          children: <Widget>[_itemOne(context), _itemTwo(context)],
+          children: <Widget>[
+            _animatedCard(context, selected),
+            _itemTwo(context)
+          ],
         ),
       ),
     );
   }
 }
 
+Widget _animatedCard(BuildContext context, bool selected) => AnimatedContainer(
+      height: selected ? 400.0 : 100.0,
+      duration: Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+      child: _itemOne(context),
+    );
+
 Widget _itemOne(BuildContext context) => Container(
       child: Card(elevation: 10, color: const Color(0xffffffff)),
-      height: 126.0,
+      height: 124.0,
       width: MediaQuery.of(context).size.width,
     );
 
 Widget _itemTwo(BuildContext context) => Container(
-      child: Card(elevation: 10, color: const Color(0xffffffff)),
+      child: Card(
+        elevation: 10,
+        color: const Color(0xffffffff),
+        child: Column(
+          children: <Widget>[_topContent(), _bottomContent()],
+        ),
+      ),
       height: 122.0,
       width: MediaQuery.of(context).size.width,
+    );
+
+Widget _topContent() => Container(
+      child: Row(
+        children: <Widget>[
+          Text("Property Taxes"),
+          Text("5Mins"),
+          Icon(
+            Icons.cancel,
+            size: 16,
+            color: const Color(0xfff79631),
+          ),
+        ],
+      ),
+    );
+
+Widget _bottomContent() => Container(
+      child: Row(
+        children: <Widget>[
+          Text("Invoice 101 is overdue"),
+        ],
+      ),
     );
