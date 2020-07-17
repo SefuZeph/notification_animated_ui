@@ -49,7 +49,62 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children: <Widget>[
             _animatedCard(context, selected),
-            _itemTwo(context)
+            Container(
+              child: Card(
+                elevation: 10,
+                color: const Color(0xffffffff),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Property Taxes",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'VarelaRound',
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              child: Text("5Mins",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 12)),
+                              padding: EdgeInsets.only(right: 16.0),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 16.0),
+                              child: Visibility(
+                                visible: selected,
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      selected = false;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.cancel,
+                                    size: 16.0,
+                                    color: const Color(0xfff79631),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _bottomContent()
+                    ],
+                  ),
+                ),
+              ),
+              height: 122.0,
+              width: MediaQuery.of(context).size.width,
+            )
           ],
         ),
       ),
@@ -58,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget _animatedCard(BuildContext context, bool selected) => AnimatedContainer(
-      height: selected ? 400.0 : 100.0,
+      height: selected ? 300.0 : 126.0,
       duration: Duration(seconds: 2),
       curve: Curves.fastOutSlowIn,
       child: _itemOne(context),
@@ -70,36 +125,16 @@ Widget _itemOne(BuildContext context) => Container(
       width: MediaQuery.of(context).size.width,
     );
 
-Widget _itemTwo(BuildContext context) => Container(
-      child: Card(
-        elevation: 10,
-        color: const Color(0xffffffff),
-        child: Column(
-          children: <Widget>[_topContent(), _bottomContent()],
-        ),
-      ),
-      height: 122.0,
-      width: MediaQuery.of(context).size.width,
-    );
-
-Widget _topContent() => Container(
-      child: Row(
-        children: <Widget>[
-          Text("Property Taxes"),
-          Text("5Mins"),
-          Icon(
-            Icons.cancel,
-            size: 16,
-            color: const Color(0xfff79631),
-          ),
-        ],
-      ),
-    );
-
 Widget _bottomContent() => Container(
-      child: Row(
-        children: <Widget>[
-          Text("Invoice 101 is overdue"),
-        ],
+      child: Padding(
+        padding: EdgeInsets.only(top: 2.0),
+        child: Row(
+          children: <Widget>[
+            Text(
+              "Invoice 101 is overdue",
+              style: TextStyle(fontWeight: FontWeight.w100, fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
