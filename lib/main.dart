@@ -45,65 +45,64 @@ class _MyHomePageState extends State<MyHomePage> {
           selected = true;
         });
       },
+      onLongPress: () {
+        setState(() {
+          selected = false;
+        });
+      },
       child: Container(
-        child: Stack(
+        child: Column(
           children: <Widget>[
-            _animatedCard(context, selected),
-            Container(
-              child: Card(
-                elevation: 10,
-                color: const Color(0xffffffff),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.0, top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Property Taxes",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'VarelaRound',
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              child: Text("5Mins",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 12)),
-                              padding: EdgeInsets.only(right: 16.0),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 16.0),
-                              child: Visibility(
-                                visible: selected,
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      selected = false;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.cancel,
-                                    size: 16.0,
-                                    color: const Color(0xfff79631),
+            Padding(padding: EdgeInsets.only(top: 16),),
+
+            Text("Notifications",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontFamily: 'VarelaRound',
+                )),
+            Padding(padding: EdgeInsets.only(top: 6),),
+            Stack(
+              children: <Widget>[
+                _animatedCard(context, selected),
+                Container(
+                  child: Card(
+                    elevation: 10,
+                    color: const Color(0xffffffff),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0, top: 16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text(
+                                    "Property Taxes",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'VarelaRound',
+                                    ),
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  child: Text("5Mins",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 12)),
+                                  padding: EdgeInsets.only(right: 16.0),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          _bottomContent()
+                        ],
                       ),
-                      _bottomContent()
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              height: 122.0,
-              width: MediaQuery.of(context).size.width,
+                  height: 122.0,
+                  width: MediaQuery.of(context).size.width,
+                )
+              ],
             )
           ],
         ),
@@ -120,14 +119,28 @@ Widget _animatedCard(BuildContext context, bool selected) => AnimatedContainer(
     );
 
 Widget _itemOne(BuildContext context) => Container(
-      child: Card(elevation: 10, color: const Color(0xffffffff)),
+      child: Card(
+        elevation: 10,
+        color: const Color(0xffffffff),
+        child: Container(
+          padding: EdgeInsets.only(top: 140.0, left: 24.0, right: 24.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _bottomStackedContentOne(),
+                _bottomStackedContentTwo()
+              ],
+            ),
+          ),
+        ),
+      ),
       height: 124.0,
       width: MediaQuery.of(context).size.width,
     );
 
 Widget _bottomContent() => Container(
       child: Padding(
-        padding: EdgeInsets.only(top: 2.0),
+        padding: EdgeInsets.only(top: 16.0),
         child: Row(
           children: <Widget>[
             Text(
@@ -136,5 +149,79 @@ Widget _bottomContent() => Container(
             ),
           ],
         ),
+      ),
+    );
+
+Widget _bottomStackedContentOne() => Container(
+      padding: EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/images/shipping-and-delivery.png'),
+                width: 24.0,
+                height: 24.0,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+              ),
+              Text("Shiping",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12))
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/images/sms.png'),
+                width: 24.0,
+                height: 24.0,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+              ),
+              Text("SMS",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12))
+            ],
+          ),
+        ],
+      ),
+    );
+
+Widget _bottomStackedContentTwo() => Container(
+      padding: EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/images/online-payment.png'),
+                width: 24.0,
+                height: 24.0,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+              ),
+              Text("Payment",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12))
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/images/call.png'),
+                width: 24.0,
+                height: 24.0,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+              ),
+              Text("Call",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12))
+            ],
+          ),
+        ],
       ),
     );

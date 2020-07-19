@@ -50,7 +50,10 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/images/blue_background_card.png
+    - assets/images/online-payment.png
+    - assets/images/call.png
+    - assets/images/sms.png
+    - assets/images/shipping-and-delivery.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
